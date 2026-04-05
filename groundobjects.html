@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: light only;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ground Objects — Collectible Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #FAF8F5;
+    color: #2C2824;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    background: #FAF8F5;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 30%, rgba(198, 178, 150, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 80% 70%, rgba(198, 178, 150, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3.2rem, 8vw, 7.5rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2C2824;
+    line-height: 1.05;
+    margin-bottom: 0;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 0.3s forwards;
+  }
+
+  .hero-wordmark span {
+    display: block;
+  }
+
+  .hero-tagline {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #C6B296;
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 0.7s forwards;
+  }
+
+  .hero-location {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: #9B8E7E;
+    margin-top: 48px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 1.1s forwards;
+  }
+
+  /* ── SECTION SHARED ── */
+  section {
+    padding: 120px 24px;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #C6B296;
+    margin-bottom: 20px;
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4.5vw, 3.8rem);
+    line-height: 1.15;
+    color: #2C2824;
+    margin-bottom: 40px;
+  }
+
+  .section-heading em {
+    font-style: italic;
+    color: #9B8E7E;
+  }
+
+  /* ── ABOUT / CONCEPT ── */
+  .about {
+    background: #F5F1EC;
+  }
+
+  .about-body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #4A443D;
+    max-width: 680px;
+  }
+
+  /* ── THREE PILLARS ── */
+  .pillars {
+    background: #FAF8F5;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    margin-top: 60px;
+  }
+
+  .pillar {
+    border-top: 1px solid #DDD5CA;
+    padding-top: 32px;
+  }
+
+  .pillar-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #C6B296;
+    margin-bottom: 18px;
+  }
+
+  .pillar-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.25;
+    color: #2C2824;
+    margin-bottom: 16px;
+  }
+
+  .pillar-body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #6B6259;
+  }
+
+  /* ── DESIGN DNA ── */
+  .dna {
+    background: #F5F1EC;
+    color: #2C2824;
+  }
+
+  .dna .section-label { color: #C6B296; }
+  .dna .section-heading { color: #2C2824; }
+  .dna .section-heading em { color: #9B8E7E; }
+
+  .dna-values {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 60px;
+    margin-top: 50px;
+  }
+
+  .dna-value {
+    padding: 24px 0;
+    border-bottom: 1px solid #DDD5CA;
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+  }
+
+  .dna-value-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+    color: #C6B296;
+    flex-shrink: 0;
+    width: 30px;
+  }
+
+  .dna-value-text {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #6B6259;
+  }
+
+  .dna-value-text strong {
+    font-weight: 400;
+    color: #2C2824;
+  }
+
+  /* ── CONTACT / FOOTER ── */
+  .contact {
+    background: #2C2824;
+    color: #FAF8F5;
+    text-align: center;
+    padding: 140px 24px;
+  }
+
+  .contact-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .contact-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: #9B8E7E;
+    margin-bottom: 48px;
+  }
+
+  .contact-email {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: #C6B296;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(198, 178, 150, 0.3);
+    padding-bottom: 4px;
+    transition: border-color 0.3s ease;
+  }
+
+  .contact-email:hover {
+    border-color: #C6B296;
+  }
+
+  .contact-location {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: #6B6259;
+    margin-top: 40px;
+  }
+
+  .footer {
+    background: #2C2824;
+    border-top: 1px solid rgba(198, 178, 150, 0.1);
+    padding: 30px 24px;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: #6B6259;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: #C6B296;
+    margin: 0 auto;
+    opacity: 0.5;
+  }
+
+  /* ── COMING SOON BADGE ── */
+  .coming-soon {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #C6B296;
+    border: 1px solid rgba(198, 178, 150, 0.4);
+    padding: 8px 20px;
+    margin-top: 32px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 1.3s forwards;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    section { padding: 80px 24px; }
+
+    .pillars-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .dna-values {
+      grid-template-columns: 1fr;
+    }
+
+    .contact { padding: 100px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-wordmark">
+    <span>Ground</span>
+    <span>Objects</span>
+  </div>
+  <div class="hero-tagline">collectible design</div>
+  <div class="coming-soon">Coming 2026</div>
+  <div class="hero-location">Washington Street · South Norwalk, CT</div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="about">
+  <div class="section-inner reveal">
+    <div class="section-label">The Gallery</div>
+    <h2 class="section-heading">Gallery. Showroom.<br><em>Incubator.</em></h2>
+    <p class="about-body">
+      Ground Objects is a trade and retail gallery for collectible design —
+      emerging studio makers, limited-edition commissions, and curated vintage
+      chosen for material integrity and contemporary relevance. We find the next
+      generation of American ceramicists, glassblowers, and furniture makers
+      before the market does, and bring their work to the most design-literate
+      community in the Northeast.
+    </p>
+  </div>
+</section>
+
+<!-- ── THREE PILLARS ── -->
+<section class="pillars">
+  <div class="section-inner reveal">
+    <div class="section-label">What We Carry</div>
+    <h2 class="section-heading">Three Collections,<br><em>One Point of View</em></h2>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-title">Next-Gen Makers</div>
+        <h3 class="pillar-heading">Before the<br>market does.</h3>
+        <p class="pillar-body">
+          Emerging studio designers in the mold of early Future Perfect — 
+          ceramicists, glassblowers, furniture makers working in American studios. 
+          Discovered, not distributed.
+        </p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-title">Collectible One-Offs</div>
+        <h3 class="pillar-heading">Limited edition.<br>Gallery scale.</h3>
+        <p class="pillar-body">
+          One-of-a-kind and limited-edition pieces from established designers. 
+          Trade-exclusive commissions and artist collaborations at gallery scale, 
+          in the vein of The Invisible Collection.
+        </p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-title">Curated Vintage</div>
+        <h3 class="pillar-heading">Sourced with a<br>designer eye.</h3>
+        <p class="pillar-body">
+          Refurbished vintage chosen for material integrity and contemporary 
+          relevance — not antiques for antiques' sake. Pieces that hold a room 
+          and complement what's new.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DESIGN DNA ── -->
+<section class="dna">
+  <div class="section-inner reveal">
+    <div class="section-label">Design DNA</div>
+    <h2 class="section-heading">American Craft Meets<br><em>Collectible Design</em></h2>
+    <div class="dna-values">
+      <div class="dna-value">
+        <span class="dna-value-num">01</span>
+        <span class="dna-value-text"><strong>Material-led process</strong> — clay, glass, bronze, reclaimed wood, stone</span>
+      </div>
+      <div class="dna-value">
+        <span class="dna-value-num">02</span>
+        <span class="dna-value-text"><strong>Visible hand of the maker</strong> — wabi-sabi over machine precision</span>
+      </div>
+      <div class="dna-value">
+        <span class="dna-value-num">03</span>
+        <span class="dna-value-text"><strong>Sculptural presence</strong> — pieces that hold a room</span>
+      </div>
+      <div class="dna-value">
+        <span class="dna-value-num">04</span>
+        <span class="dna-value-text"><strong>American studio production</strong> — supporting domestic craft economies</span>
+      </div>
+      <div class="dna-value">
+        <span class="dna-value-num">05</span>
+        <span class="dna-value-text"><strong>Environmental integrity</strong> — salvaged, recycled, responsibly sourced</span>
+      </div>
+      <div class="dna-value">
+        <span class="dna-value-num">06</span>
+        <span class="dna-value-text"><strong>Not a secondary market</strong> — we discover and platform, not resell</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact">
+  <div class="section-inner reveal">
+    <h2 class="contact-heading">Opening 2026.</h2>
+    <div class="contact-sub">Trade inquiries welcome.</div>
+    <div class="divider" style="margin-bottom: 48px;"></div>
+    <a href="mailto:sade@sadestrehlke.com" class="contact-email">sade@sadestrehlke.com</a>
+    <div class="contact-location">Washington Street · South Norwalk, CT</div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-text">© 2026 Ground Objects LLC · All rights reserved</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealElements = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealElements.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
